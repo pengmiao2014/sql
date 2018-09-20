@@ -36,6 +36,21 @@ WHERE
             Employee
         GROUP BY DepartmentId
     )
+-- 262. Trips and Users
+select 
+    t.Request_at as Day
+    , round(sum(case when Status like 'cancelled_%' then 1.0 else 0.0 end)/count(t.Id),2) as 'Cancellation Rate'
+from 
+    Trips t
+join 
+    Users u1 on t.Client_Id=u1.Users_Id
+join 
+    Users u2 on t.Driver_Id=u2.Users_Id
+where  
+    u1.Banned='No' 
+    and u2.Banned='No' 
+    and t.Request_at between '2013-10-01' and '2013-10-03'
+group by 1
 
 -- 177. Nth Highest Salary  ---if not exsit will return null!!
 CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
