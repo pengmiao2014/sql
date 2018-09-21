@@ -17,7 +17,40 @@ UPDATE salary
         THEN  'f' 
         ELSE 'm' 
         END)
+        
+-- 601. Human Traffic of Stadium
+-- # with temp_table as (
+-- # select s1.id as id1,s2.id as id2, s3.id as id3 
+-- # from stadium s1
+-- # join stadium s2 on datediff(s1.date, s2.date)=-1 
+-- # join stadium s3 on datediff(s2.date, s3.date)=-1 
+-- # where s1.people >=100 and s2.people >=100 and s3.people >=100 );
+    
 
+select * from
+stadium
+where id in (
+select id1 as id
+from (select s1.id as id1,s2.id as id2, s3.id as id3 
+from stadium s1
+join stadium s2 on s1.id+1=s2.id
+join stadium s3 on s2.id+1=s3.id
+where s1.people >=100 and s2.people >=100 and s3.people >=100) a1
+union 
+select id2 as id
+from (select s1.id as id1,s2.id as id2, s3.id as id3 
+from stadium s1
+join stadium s2 on s1.id+1=s2.id
+join stadium s3 on s2.id+1=s3.id 
+where s1.people >=100 and s2.people >=100 and s3.people >=100) a2
+union
+select id3 as id
+from (select s1.id as id1,s2.id as id2, s3.id as id3 
+from stadium s1
+join stadium s2 on s1.id+1=s2.id
+join stadium s3 on s2.id+1=s3.id
+where s1.people >=100 and s2.people >=100 and s3.people >=100)a3)
+    
 -- 184. Department Highest Salary
 
 SELECT
