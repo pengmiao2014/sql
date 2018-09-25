@@ -21,6 +21,29 @@ to_char(pay_date,'yyyy-mm')
 extract(quarter from time)
 (NOW() + interval '1 hour') AS an_hour_later;
 
+
+CENTURY	The century	The number of centuries
+DAY	The day of the month (1-31)	The number of days
+DECADE	The decade that is the year divided by 10	Sames as TIMESTAMP
+DOW	The day of week Sunday (0) to Saturday (6)	N/A
+DOY	The day of year that ranges from 1 to 366	N/A
+EPOCH	The number of seconds since 1970-01-01 00:00:00 UTC	The total number of seconds in the interval
+HOUR	The hour (0-23)	The number of hours
+ISODOW	Day of week based on ISO 8601 Monday (1) to Saturday (7)	N/A
+ISOYEAR	ISO 8601 week number of year	N/A
+MICROSECONDS	The seconds field, including fractional parts, multiplied by 1000000	Sames as TIMESTAMP
+MILLENNIUM	The millennium	The number of millennium
+MILLISECONDS	The seconds field, including fractional parts, multiplied by 1000	Sames as TIMESTAMP
+MINUTE	The minute (0-59)	The number of minutes
+MONTH	Month, 1-12	The number of months, modulo (0-11)
+QUARTER	Quarter of the year	The number of quarters
+SECOND	The second	The number of seconds
+TIMEZONE	The timezone offset from UTC, measured in seconds	N/A
+TIMEZONE_HOUR	The hour component of the time zone offset	N/A
+TIMEZONE_MINUTE	The minute component of the time zone offset	N/A
+WEEK	The number of the ISO 8601 week-numbering week of the year	N/A
+YEAR	The year	
+
 mysql: 
 date_format(pay_date, '%Y-%m')
 
