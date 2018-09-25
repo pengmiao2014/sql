@@ -53,6 +53,8 @@ running sum:
 SUM (StudentAge) OVER (ORDER BY Id) AS RunningAgeTotal
 SUM (StudentAge) OVER (PARTITION BY StudentGender ORDER BY Id) AS RunningAgeTotal
 
+round(population*100.0/sum(population) over (partition by continent),2)  as percentage
+
  AVG (price) OVER (PARTITION BY group_name)
  ROW_NUMBER () OVER (PARTITION BY group_name ORDER BY price)
 
