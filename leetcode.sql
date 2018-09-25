@@ -5,19 +5,60 @@
 -- (on) join
 -- where 
 -- group by (可以用别名了）
--- ave,sum...
+-- avg,sum...
 -- having
 -- select
 -- distinct 
 -- order by 
 -- limit 
-   
+
+--avg!!!!!
+
+date:
+
+postgresql: 
+to_char(pay_date,'yyyy-mm')
+
+mysql: 
+date_format(pay_date, '%Y-%m')
+
+join two tables, set different name for same col in two derived tables:
+
+-- 615. Average Salary: Departments VS Company
+select  b.pay_month1 as pay_month,  
+        b. department_id,
+        case when dep_mon_ave>mon_ave then 'higher'
+            when dep_mon_ave=mon_ave then 'same'
+            when dep_mon_ave<mon_ave then 'lower'
+            end as comparison           
+from (
+    select *
+    from 
+        (select date_format(pay_date, '%Y-%m') as pay_month1, department_id, avg(amount) as dep_mon_ave
+        from salary s 
+        join employee e 
+            on s.employee_id=e.employee_id
+        group by 1,2)t
+    join 
+        (select date_format(pay_date, '%Y-%m') as pay_month2, avg(amount) as mon_ave
+        from salary
+        group by  1)a 
+        on t.pay_month1=a.pay_month2
+    )b
+order by 2,1
+
+
 UPDATE salary
     SET sex  = (CASE WHEN sex = 'm' 
         THEN  'f' 
         ELSE 'm' 
         END)
-        
+--pivot table
+SUM(CASE WHEN year = 'FR' THEN players ELSE NULL END) AS fr,
+       SUM(CASE WHEN year = 'SO' THEN players ELSE NULL END) AS so,
+       SUM(CASE WHEN year = 'JR' THEN players ELSE NULL END) AS jr,
+       SUM(CASE WHEN year = 'SR' THEN players ELSE NULL END) AS sr
+       
 -- 601. Human Traffic of Stadium
 -- # with temp_table as (
 -- # select s1.id as id1,s2.id as id2, s3.id as id3 
