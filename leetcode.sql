@@ -15,12 +15,10 @@
 --avg!!!!!
 
 date:
-
 postgresql: 
 to_char(pay_date,'yyyy-mm')
 extract(quarter from time)
 (NOW() + interval '1 hour') AS an_hour_later;
-
 
 CENTURY	The century	The number of centuries
 DAY	The day of the month (1-31)	The number of days
@@ -51,6 +49,8 @@ AS
     SELECT ….
 )  
 
+ AVG (price) OVER (PARTITION BY group_name)
+ ROW_NUMBER () OVER (PARTITION BY group_name ORDER BY price)
 
 mysql: 
 date_format(pay_date, '%Y-%m')
