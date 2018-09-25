@@ -54,6 +54,7 @@ SUM (StudentAge) OVER (ORDER BY Id) AS RunningAgeTotal
 SUM (StudentAge) OVER (PARTITION BY StudentGender ORDER BY Id) AS RunningAgeTotal
 
 round(population*100.0/sum(population) over (partition by continent),2)  as percentage
+round(sum(case when Status like 'cancelled_%' then 1.0 else 0.0 end)/count(t.Id),2) as 'Cancellation Rate'
 
  AVG (price) OVER (PARTITION BY group_name)
  ROW_NUMBER () OVER (PARTITION BY group_name ORDER BY price)
