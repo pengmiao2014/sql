@@ -18,6 +18,8 @@ date:
 
 postgresql: 
 to_char(pay_date,'yyyy-mm')
+extract(quarter from time)
+(NOW() + interval '1 hour') AS an_hour_later;
 
 mysql: 
 date_format(pay_date, '%Y-%m')
