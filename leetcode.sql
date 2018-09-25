@@ -44,6 +44,14 @@ TIMEZONE_MINUTE	The minute component of the time zone offset	N/A
 WEEK	The number of the ISO 8601 week-numbering week of the year	N/A
 YEAR	The year	
 
+cte:
+WITH Sales_CTE (SalesPersonID, SalesOrderID, SalesYear)  
+AS  
+(  
+    SELECT ….
+)  
+
+
 mysql: 
 date_format(pay_date, '%Y-%m')
 
