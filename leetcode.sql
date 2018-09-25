@@ -51,6 +51,7 @@ AS
 
 running sum:
 SUM (StudentAge) OVER (ORDER BY Id) AS RunningAgeTotal
+SUM (StudentAge) OVER (PARTITION BY StudentGender ORDER BY Id) AS RunningAgeTotal
 
  AVG (price) OVER (PARTITION BY group_name)
  ROW_NUMBER () OVER (PARTITION BY group_name ORDER BY price)
