@@ -17,7 +17,7 @@
 date:
 postgresql: 
 
--- 不能用temp, version, date!
+-- 不能用temp, time, group, version, date!
 
 to_char(pay_date,'yyyy-mm')
 
