@@ -18,7 +18,12 @@ date:
 postgresql: 
 to_char(pay_date,'yyyy-mm')
 extract(quarter from time)
-(NOW() + interval '1 hour') AS an_hour_later;
+(NOW() + interval '1 hour') AS an_hour_later
+age(date(entrant_date),date(convertion_date))
+0 years 0 mons 17 days 0 hours 0 mins 0.00 secs
+
+                            
+                            
 
 CENTURY	The century	The number of centuries
 DAY	The day of the month (1-31)	The number of days
