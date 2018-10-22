@@ -24,10 +24,12 @@ to_char(pay_date,'yyyy-mm')
 datefiff:
 age(date(entrant_date),date(convertion_date))
 0 years 0 mons 17 days 0 hours 0 mins 0.00 secs 
+
+date_part('day',time) = extract ('day'  from time)
+                            
 date_part('day',age('2010-04-01', '2012-03-05'))
 26
-
-extract(quarter from time)
+                                 
 -- CENTURY	The century	The number of centuries
 -- DAY	The day of the month (1-31)	The number of days
 -- DECADE	The decade that is the year divided by 10	Sames as TIMESTAMP
