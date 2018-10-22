@@ -17,6 +17,8 @@
 date:
 postgresql: 
 
+-- 不能用temp, version, date!
+
 to_char(pay_date,'yyyy-mm')
 
 (NOW() + interval '1 hour') AS an_hour_later
@@ -53,11 +55,13 @@ date_part('day',age('2010-04-01', '2012-03-05'))
 -- YEAR	The year	
 
 cte:
-WITH Sales_CTE (SalesPersonID, SalesOrderID, SalesYear)  
-AS  
-(  
-    SELECT ….
-)  
+WITH temp_table --(SalesPersonID, SalesOrderID, SalesYear) 可以不写 
+AS  (  SELECT ….) ,
+temp_table2 
+AS  (  SELECT ….) 
+select * from temp_table2
+                    
+
 
 running sum:
 SUM (StudentAge) OVER (ORDER BY Id) AS RunningAgeTotal
@@ -65,7 +69,10 @@ SUM (StudentAge) OVER (PARTITION BY StudentGender ORDER BY Id) AS RunningAgeTota
 
 round(population*100.0/sum(population) over (partition by continent),2)  as percentage
 round(sum(case when Status like 'cancelled_%' then 1.0 else 0.0 end)/count(t.Id),2) as 'Cancellation Rate'
+count(case when a.user_id is not null and c.user_id is null then 1 else null end) as users_entered_but_not_converted,
 
+sum和count： sum后面是null时全是null就显示null,全是0就显示0；count后面只能加null!!!!用sum比较保险！！！
+                    
  AVG (price) OVER (PARTITION BY group_name)
  ROW_NUMBER () OVER (PARTITION BY group_name ORDER BY price)
 
