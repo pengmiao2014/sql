@@ -69,6 +69,9 @@ round(sum(case when Status like 'cancelled_%' then 1.0 else 0.0 end)/count(t.Id)
  AVG (price) OVER (PARTITION BY group_name)
  ROW_NUMBER () OVER (PARTITION BY group_name ORDER BY price)
 
+                  
+count, sum, avg 等不会加入null
+
 mysql: 
 date_format(pay_date, '%Y-%m')
 
