@@ -12,11 +12,10 @@
 -- order by 
 -- limit 
 
---avg!!!!!
-
--- 不能用temp, time, group, ID，count, version, date!
-
+avg!!!!!
+不能用temp, time, group, ID，count, version, date!
 除要加0.0， 和round！！！
+ group by 中column可以不出现在select 中
 
 date:
 postgresql: 
@@ -97,7 +96,7 @@ AS  (  SELECT ….) ,
 temp_table2 
 AS  (  SELECT ….) 
 select * from temp_table2
-                    
+             
 
 running sum:
 SUM (StudentAge) OVER (ORDER BY Id) AS RunningAgeTotal
