@@ -14,10 +14,13 @@
 
 --avg!!!!!
 
+-- 不能用temp, time, group, ID，count, version, date!
+
+除要加0.0， 和round！！！
+
 date:
 postgresql: 
 
--- 不能用temp, time, group, version, date!
 pivot 要用sum(case when) !!!!! 不能直接case when!!!
 
 UID group_id  ct
@@ -26,28 +29,46 @@ UID group_id  ct
 2	    1	      3
 2	    0	      4
 
+pivot:
 select uid, 
 sum (case when group_id='1' then ct end) as test_ct,  -- int type 带不带‘’都行！！
 sum (case when group_id='0' then ct end) as control_ct
 from p_test
 group by 1
 
-2	    "3"	    "4"
 1	    "3"	    "4"
+2	    "3"	    "4"
+
+
+select camp_id,
+round((count(distinct case when response = 'open' then user_id end)+0.0)/ count(distinct case when response='sent' then user_id end),2) as open_rate
+from email
+group by 1;
+
+
 
 to_char(pay_date,'yyyy-mm')
 
-(NOW() + interval '1 hour') AS an_hour_later
+date(ts) between now()- interval '2 years' and now();
+now() - INTERVAL '1 year 3 hours 20 minutes' 
+
+date(now()- interval '2 years')
+"2016-10-22"
+
+now()
+"2018-10-22 23:15:47.430339-07"
+
 
 datefiff:
-age(date(entrant_date),date(convertion_date))
-0 years 0 mons 17 days 0 hours 0 mins 0.00 secs 
 
 date_part('day',time) = extract ('day'  from time)
+
+age(date(entrant_date),date(convertion_date))
+0 years 0 mons 17 days 0 hours 0 mins 0.00 secs 
                             
 date_part('day',age('2010-04-01', '2012-03-05'))
-26
-                                 
+26              
+                                                      
 -- CENTURY	The century	The number of centuries
 -- DAY	The day of the month (1-31)	The number of days
 -- DECADE	The decade that is the year divided by 10	Sames as TIMESTAMP
@@ -77,7 +98,6 @@ temp_table2
 AS  (  SELECT ….) 
 select * from temp_table2
                     
-
 
 running sum:
 SUM (StudentAge) OVER (ORDER BY Id) AS RunningAgeTotal
