@@ -18,6 +18,22 @@ date:
 postgresql: 
 
 -- 不能用temp, time, group, version, date!
+pivot 要用sum(case when) !!!!! 不能直接case when!!!
+
+UID group_id  ct
+1	    1	      3
+1	    0	      4
+2	    1	      3
+2	    0	      4
+
+select uid, 
+sum (case when group_id='1' then ct end) as test_ct,  -- int type 带不带‘’都行！！
+sum (case when group_id='0' then ct end) as control_ct
+from p_test
+group by 1
+
+2	    "3"	    "4"
+1	    "3"	    "4"
 
 to_char(pay_date,'yyyy-mm')
 
