@@ -44,10 +44,15 @@ round((count(distinct case when response = 'open' then user_id end)+0.0)/ count(
 from email
 group by 1;
 
-
+, row_number() over(partition by y.week_ending order by y.weekly_OOC_VISITS_PCT desc) as store_rank /*does ranking*/
+	, ntile(4) over(partition by y.week_ending order by y.weekly_OOC_VISITS_PCT desc) as quartile_rank /*breaks stores into quartiles as we chose ntile(4)*/
+	, ntile(10) over(partition by y.week_ending order by y.weekly_OOC_VISITS_PCT desc) as decile_rank /*breaks stores int odeciles as we wrote ntile(10)*/
 
 to_char(pay_date,'yyyy-mm')
 
+, EXTRACT(DOW FROM OOC.DAYBEGIN)                                            AS DOW
+, DATE_TRUNC('W', OOC.WEEKBEGIN + 1) + 5                                    AS WEEK_ENDING
+     
 date(ts) between now()- interval '2 years' and now();
 now() - INTERVAL '1 year 3 hours 20 minutes' 
 
