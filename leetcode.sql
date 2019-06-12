@@ -44,9 +44,34 @@ round((count(distinct case when response = 'open' then user_id end)+0.0)/ count(
 from email
 group by 1;
 
+
+row_number 	rank   dense_rank
+1		1	1
+2		1	1
+3		1	1
+4		4	2
+5		4	2
+6		6	3
+
 , row_number() over(partition by y.week_ending order by y.weekly_OOC_VISITS_PCT desc) as store_rank /*does ranking*/
-	, ntile(4) over(partition by y.week_ending order by y.weekly_OOC_VISITS_PCT desc) as quartile_rank /*breaks stores into quartiles as we chose ntile(4)*/
-	, ntile(10) over(partition by y.week_ending order by y.weekly_OOC_VISITS_PCT desc) as decile_rank /*breaks stores int odeciles as we wrote ntile(10)*/
+, ntile(4) over(partition by y.week_ending order by y.weekly_OOC_VISITS_PCT desc) as quartile_rank /*breaks stores into quartiles as we chose ntile(4)*/
+, ntile(10) over(partition by y.week_ending order by y.weekly_OOC_VISITS_PCT desc) as decile_rank /*breaks stores int odeciles as we wrote ntile(10)*/
+running sum:
+SUM (StudentAge) OVER (ORDER BY Id) AS RunningAgeTotal
+SUM (StudentAge) OVER (PARTITION BY StudentGender ORDER BY Id) AS RunningAgeTotal
+
+round(population*100.0/sum(population) over (partition by continent),2)  as percentage
+round(sum(case when Status like 'cancelled_%' then 1.0 else 0.0 end)/count(t.Id),2) as 'Cancellation Rate'
+count(case when a.user_id is not null and c.user_id is null then 1 else null end) as users_entered_but_not_converted,
+
+sum和count： sum后面是null时全是null就显示null,全是0就显示0；count后面只能加null!!!!用sum比较保险！！！
+                    
+ AVG (price) OVER (PARTITION BY group_name)
+ ROW_NUMBER () OVER (PARTITION BY group_name ORDER BY price)
+
+                  
+count, sum, avg 等不会加入null
+
 
 to_char(pay_date,'yyyy-mm')
 
@@ -103,21 +128,7 @@ AS  (  SELECT ….)
 select * from temp_table2
              
 
-running sum:
-SUM (StudentAge) OVER (ORDER BY Id) AS RunningAgeTotal
-SUM (StudentAge) OVER (PARTITION BY StudentGender ORDER BY Id) AS RunningAgeTotal
 
-round(population*100.0/sum(population) over (partition by continent),2)  as percentage
-round(sum(case when Status like 'cancelled_%' then 1.0 else 0.0 end)/count(t.Id),2) as 'Cancellation Rate'
-count(case when a.user_id is not null and c.user_id is null then 1 else null end) as users_entered_but_not_converted,
-
-sum和count： sum后面是null时全是null就显示null,全是0就显示0；count后面只能加null!!!!用sum比较保险！！！
-                    
- AVG (price) OVER (PARTITION BY group_name)
- ROW_NUMBER () OVER (PARTITION BY group_name ORDER BY price)
-
-                  
-count, sum, avg 等不会加入null
 
 mysql: 
 date_format(pay_date, '%Y-%m')
